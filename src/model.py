@@ -12,8 +12,8 @@ moves = [(1,2),(2,1),(-1,2),(-2,1),(1,-2),(2,-1),(-1,-2),(-2,-1)]
 
 # Define variables
 
-a = (0,0)
-b = (2,2)
+a = (1,5)
+b = (4,0)
 
 X = dict()
 
@@ -53,13 +53,19 @@ for i in range(8):
 path = list()
 knight = a
 
-while knight != b:
+while True:
+    if (knight == b):
+        board[knight[0]][knight[1]] = 3
+        path.append(knight)
+        break
     path.append(knight)
     for k in moves:
         try:
             if (board[knight[0] + k[0]][knight[1] + k[1]] == 2):
-                knight = (knight[0]  + k[0], knight[1] + k[1])
                 board[knight[0]][knight[1]] = 3
+                knight = (knight[0]  + k[0], knight[1] + k[1])
+                break
+                
         except:
             continue
             
@@ -68,13 +74,21 @@ while knight != b:
 from matplotlib.colors import ListedColormap
 cmap = ListedColormap(['white', "#0D070F", 'red', "#250E8B"])
 
-plt.figure(figsize=(6, 6))
-plt.imshow(board, cmap=cmap, vmin=0, vmax=2)
-plt.xticks(range(8))
-plt.yticks(range(8))
+fig, ax = plt.subplots(figsize=(6, 6))
+ax.imshow(board, cmap=cmap, vmin=0, vmax=4)
+
+
+for index,k in enumerate(path):
+        i = k[0]
+        j = k[1]
+        ax.text(j, i, f'({index})', ha='center', va='center', fontsize=17, color='black')
+
+ax.set_xticks([])
+ax.set_yticks([])
 plt.tick_params(left=False, bottom=False, labelleft=False, labelbottom=False)
 plt.show()
 
 
 print(f"Objective function value : { model.getObjVal () } ")
 print(sol)
+print(path)
