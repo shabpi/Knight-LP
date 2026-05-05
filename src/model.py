@@ -10,10 +10,13 @@ model = Model ("Knight")
 
 moves = [(1,2),(2,1),(-1,2),(-2,1),(1,-2),(2,-1),(-1,-2),(-2,-1)]
 
-# Define variables
+# Define Start and End
+
 
 a = (1,5)
 b = (4,0)
+
+# Define vgit add .ariables
 
 X = dict()
 
